@@ -1,10 +1,10 @@
 -- db/schema.sql
-DROP DATABASE IF EXISTS jwt_auth;
+DROP DATABASE IF EXISTS worldmap_dev;
 
-CREATE DATABASE jwt_auth;
+CREATE DATABASE worldmap_dev;
 
 
-\c jwt_auth
+\c worldmap_dev;
 
 
 CREATE TABLE users (
@@ -17,3 +17,16 @@ CREATE TABLE users (
 );
 
 
+CREATE TABLE countries (
+    id SERIAL PRIMARY KEY,
+    country TEXT NOT NULL,
+    time TIMESTAMP WITH TIME ZONE NOT NULL,
+    landmarks TEXT,
+    cities TEXT
+);
+
+-- CREATE TABLE favorites(
+--     id SERIAL PRIMARY KEY,
+--     url TEXT NOT NULL,
+--     description TEXT,
+-- );
