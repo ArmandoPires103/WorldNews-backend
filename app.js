@@ -5,7 +5,9 @@ const cron = require("node-cron");
 const cookieParser = require("cookie-parser");
 
 const authController = require("./controllers/authController");
-const worldController = require("./controllers/worldController")
+const worldController = require("./controllers/worldController");
+const favoritesController = require("./controllers/favoritesController");
+
 
 
 
@@ -31,6 +33,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use("/news/countries", worldController)
+app.use("/news/favorites", favoritesController)
 
 // ROUTES
 

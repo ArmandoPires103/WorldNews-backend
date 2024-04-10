@@ -53,6 +53,8 @@ auth.post("/register", async (req, res) => {
       username,
       passwordHash: hashedPassword,
       email,
+      primary_countries,
+      secondary_countries
     });
 
     const token = generateToken(newUser);

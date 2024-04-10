@@ -13,7 +13,9 @@ CREATE TABLE users (
     password_hash VARCHAR(255) NOT NULL,
     email VARCHAR(255) UNIQUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    primary_countries TEXT,
+    secondary_countries TEXT
 );
 
 
@@ -25,8 +27,8 @@ CREATE TABLE countries (
     cities TEXT
 );
 
--- CREATE TABLE favorites(
---     id SERIAL PRIMARY KEY,
---     url TEXT NOT NULL,
---     description TEXT,
--- );
+CREATE TABLE favorites(
+    id SERIAL PRIMARY KEY,
+    url TEXT NOT NULL,
+    description TEXT
+);

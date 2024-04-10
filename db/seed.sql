@@ -1,9 +1,12 @@
 -- db/seed.sql
 \c worldmap_dev
 
-INSERT INTO users (username, password_hash, email, created_at, updated_at)
-VALUES 
-('demo', '$2b$10$.z68x3792U9LyBwmghfsKexstMO7i0SeNCoDmeJa7bEFPQBnZU3bK', 'demo@example.com', NOW(), NOW());
+
+INSERT INTO users (username, password_hash, email, created_at, updated_at, primary_countries, secondary_countries)
+VALUES
+    ('user1', 'password', 'user1@example.com', NOW(), NOW(), 'USA', 'Germany'),
+    ('user2', 'password456', 'user2@example.com', NOW(), NOW(), 'France', 'Japan'),
+    ('user3', 'password789', 'user3@example.com', NOW(), NOW(), 'Brazil', 'India');
 
 
 INSERT INTO countries (country, time, landmarks, cities) VALUES
@@ -23,3 +26,7 @@ INSERT INTO countries (country, time, landmarks, cities) VALUES
     ('Peru', '2024-03-17 15:50:00-05', 'Machu Picchu, Nazca Lines', 'Lima, Cusco, Arequipa'),
     ('Chile', '2024-03-17 18:25:00-04', 'Easter Island, Torres del Paine National Park', 'Santiago, Valparaíso, Concepción'),
     ('Venezuela', '2024-03-17 13:40:00-04:30', 'Angel Falls, Mount Roraima', 'Caracas, Maracaibo, Valencia');
+
+INSERT INTO favorites (url, description) VALUES
+    ('https://example.com/page1', 'Example Page 1'),
+    ('https://example.com/page2', 'Example Page 2');
