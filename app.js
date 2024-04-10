@@ -36,6 +36,7 @@ app.use("/news/countries", worldController)
 app.use("/news/favorites", favoritesController)
 
 // ROUTES
+//http://localhost:3003/news?country=us //TO ACCESS COUNTRY BY 2 LETTERS
 
 app.get('/news', async (req, res) => {
   try {
