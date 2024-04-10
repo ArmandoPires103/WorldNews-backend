@@ -7,6 +7,14 @@ CREATE DATABASE worldmap_dev;
 \c worldmap_dev;
 
 
+CREATE TABLE countries (
+    id SERIAL PRIMARY KEY,
+    country TEXT NOT NULL,
+    landmarks TEXT,
+    cities TEXT
+);
+
+
 CREATE TABLE users (
     id SERIAL PRIMARY KEY,
     username VARCHAR(255) UNIQUE NOT NULL,
@@ -14,21 +22,18 @@ CREATE TABLE users (
     email VARCHAR(255) UNIQUE,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    primary_countries TEXT,
-    secondary_countries TEXT
+    primary_country_id INTEGER,
+    secondary_country_id INTEGER,
+    FOREIGN KEY (primary_country_id) REFERENCES countries(id),
+    FOREIGN KEY (secondary_country_id) REFERENCES countries(id)
 );
 
 
-CREATE TABLE countries (
-    id SERIAL PRIMARY KEY,
-    country TEXT NOT NULL,
-    time TIMESTAMP WITH TIME ZONE NOT NULL,
-    landmarks TEXT,
-    cities TEXT
-);
 
 CREATE TABLE favorites(
     id SERIAL PRIMARY KEY,
     url TEXT NOT NULL,
-    description TEXT
+    description TEXT,
+    user_id INTEGER,
+    FOREIGN KEY (user_id) REFERENCES users(id)
 );

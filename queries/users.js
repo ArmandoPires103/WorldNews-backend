@@ -17,7 +17,7 @@ const findUserByUsername = async (username) => {
   }
 };
 
-const createUser = async ({ username, passwordHash, email }) => {
+const createUser = async ({ username, passwordHash, email,}) => {
   const query = `
       INSERT INTO users (username, password_hash, email)
       VALUES ($1, $2,$3)

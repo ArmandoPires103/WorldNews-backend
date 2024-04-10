@@ -2,31 +2,34 @@
 \c worldmap_dev
 
 
-INSERT INTO users (username, password_hash, email, created_at, updated_at, primary_countries, secondary_countries)
+
+
+INSERT INTO countries (country, landmarks, cities) VALUES
+    ('USA','Statue of Liberty, Grand Canyon', 'New York City, Los Angeles, Chicago'),
+    ('Russia','Red Square, Saint Basil''s Cathedral', 'Moscow, Saint Petersburg'),
+    ('China', 'Great Wall of China, Forbidden City', 'Beijing, Shanghai, Guangzhou'),
+    ('Mexico', 'Chichen Itza, Palenque', 'Mexico City, Cancún, Guadalajara'),
+    ('Canada', 'CN Tower, Niagara Falls', 'Toronto, Montreal, Vancouver'),
+    ('United Kingdom', 'Big Ben, Stonehenge', 'London, Manchester, Edinburgh'),
+    ('Germany',  'Brandenburg Gate, Neuschwanstein Castle', 'Berlin, Munich, Hamburg'),
+    ('France',  'Eiffel Tower, Louvre Museum', 'Paris, Marseille, Lyon'),
+    ('India', 'Taj Mahal, Red Fort', 'New Delhi, Mumbai, Bangalore'),
+    ('Australia', 'Sydney Opera House, Great Barrier Reef', 'Sydney, Melbourne, Brisbane'),
+    ('Brazil',  'Christ the Redeemer, Iguazu Falls', 'Rio de Janeiro, São Paulo, Brasília'),
+    ('Argentina',  'Perito Moreno Glacier, La Boca Neighborhood', 'Buenos Aires, Córdoba, Rosario'),
+    ('Colombia',  'Lost City, Salt Cathedral of Zipaquirá', 'Bogotá, Medellín, Cartagena'),
+    ('Peru',  'Machu Picchu, Nazca Lines', 'Lima, Cusco, Arequipa'),
+    ('Chile',  'Easter Island, Torres del Paine National Park', 'Santiago, Valparaíso, Concepción'),
+    ('Venezuela',  'Angel Falls, Mount Roraima', 'Caracas, Maracaibo, Valencia');
+
+INSERT INTO users (username, password_hash, email, created_at, updated_at, primary_country_id, secondary_country_id)
 VALUES
-    ('user1', 'password', 'user1@example.com', NOW(), NOW(), 'USA', 'Germany'),
-    ('user2', 'password456', 'user2@example.com', NOW(), NOW(), 'France', 'Japan'),
-    ('user3', 'password789', 'user3@example.com', NOW(), NOW(), 'Brazil', 'India');
+  
+    ('user1', 'password', 'user1@example.com', NOW(), NOW(), 1, 2),
+    ('user2', 'password456', 'user2@example.com', NOW(), NOW(), 3, 4),
+    ('user3', 'password789', 'user3@example.com', NOW(), NOW(), 5, 6);
 
 
-INSERT INTO countries (country, time, landmarks, cities) VALUES
-    ('USA', '2024-03-17 10:00:00-04', 'Statue of Liberty, Grand Canyon', 'New York City, Los Angeles, Chicago'),
-    ('Russia', '2024-03-17 15:30:00+03', 'Red Square, Saint Basil''s Cathedral', 'Moscow, Saint Petersburg'),
-    ('China', '2024-03-17 20:45:00+08', 'Great Wall of China, Forbidden City', 'Beijing, Shanghai, Guangzhou'),
-    ('Mexico', '2024-03-17 12:20:00-06', 'Chichen Itza, Palenque', 'Mexico City, Cancún, Guadalajara'),
-    ('Canada', '2024-03-17 08:45:00-07', 'CN Tower, Niagara Falls', 'Toronto, Montreal, Vancouver'),
-    ('United Kingdom', '2024-03-17 13:15:00+00', 'Big Ben, Stonehenge', 'London, Manchester, Edinburgh'),
-    ('Germany', '2024-03-17 14:30:00+01', 'Brandenburg Gate, Neuschwanstein Castle', 'Berlin, Munich, Hamburg'),
-    ('France', '2024-03-17 16:00:00+01', 'Eiffel Tower, Louvre Museum', 'Paris, Marseille, Lyon'),
-    ('India', '2024-03-17 23:10:00+05:30', 'Taj Mahal, Red Fort', 'New Delhi, Mumbai, Bangalore'),
-    ('Australia', '2024-03-17 18:20:00+10', 'Sydney Opera House, Great Barrier Reef', 'Sydney, Melbourne, Brisbane'),
-    ('Brazil', '2024-03-17 17:30:00-03', 'Christ the Redeemer, Iguazu Falls', 'Rio de Janeiro, São Paulo, Brasília'),
-    ('Argentina', '2024-03-17 16:45:00-03', 'Perito Moreno Glacier, La Boca Neighborhood', 'Buenos Aires, Córdoba, Rosario'),
-    ('Colombia', '2024-03-17 14:10:00-05', 'Lost City, Salt Cathedral of Zipaquirá', 'Bogotá, Medellín, Cartagena'),
-    ('Peru', '2024-03-17 15:50:00-05', 'Machu Picchu, Nazca Lines', 'Lima, Cusco, Arequipa'),
-    ('Chile', '2024-03-17 18:25:00-04', 'Easter Island, Torres del Paine National Park', 'Santiago, Valparaíso, Concepción'),
-    ('Venezuela', '2024-03-17 13:40:00-04:30', 'Angel Falls, Mount Roraima', 'Caracas, Maracaibo, Valencia');
-
-INSERT INTO favorites (url, description) VALUES
-    ('https://example.com/page1', 'Example Page 1'),
-    ('https://example.com/page2', 'Example Page 2');
+INSERT INTO favorites (url, description, user_id) VALUES
+    ('https://example.com/page1', 'Example Page 1', 1),
+    ('https://example.com/page2', 'Example Page 2', 1);
