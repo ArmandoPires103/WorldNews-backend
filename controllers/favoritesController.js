@@ -13,6 +13,7 @@ favorites.get("/", async (_req, res) => {
   favorites.post("/", async (req, res) => {
     try {
       const favorite = await createFavorite(req.body);
+      console.log(favorite)
       res.json(favorite);
     } catch (error) {
       res.status(400).json({ error });
