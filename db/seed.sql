@@ -30,6 +30,6 @@ VALUES
     ('user2', 'password456', 'user2@example.com', NOW(), NOW(), 3, 4),
     ('user3', 'password789', 'user3@example.com', NOW(), NOW(), 5, 6);
 
-INSERT INTO favorites (url, description, user_id) VALUES
-    ('https://example.com/page1', 'Example Page 1', 1),
-    ('https://example.com/page2', 'Example Page 2', 1);
+INSERT INTO favorites (url, description, title, url_to_image, user_id) VALUES
+    ('https://example.com/page1', 'Example Page 1', 'Six dead in mass stabbing at Sydney shopping center - CNN', 'https://static1.anpoimages.com/wordpress/wp-content/uploads/2023/03/android-15-ice-cream-vanilla-codename-1.jpg', 1),
+    ('https://example.com/page2', 'Example Page 2', 'Rico Wade, Key Outkast Producer and Member of Organized Noize, Dies at 52 - Variety', 'https://static1.anpoimages.com/wordpress/wp-content/uploads/2023/03/android-15-ice-cream-vanilla-codename-1.jpg', 1);

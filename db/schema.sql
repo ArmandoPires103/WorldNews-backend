@@ -35,5 +35,7 @@ CREATE TABLE favorites(
     url TEXT NOT NULL,
     description TEXT,
     user_id INTEGER,
+    title TEXT,
+    url_to_image TEXT,
     FOREIGN KEY (user_id) REFERENCES users(id)
 );

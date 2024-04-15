@@ -12,11 +12,13 @@ const getAllFavorites = async () => {
 const createFavorite = async (favorite) => {
     try {
       const query = `
-        INSERT INTO favorites (url, description )
-        VALUES ($1, $2) RETURNING *`;
+        INSERT INTO favorites (url, description, title, url_to_image )
+        VALUES ($1, $2, $3, $4) RETURNING *`;
       const newFavorite = await db.one(query, [
         favorite.url,
         favorite.description,
+        favorite.title,
+        favorite.url_to_image
       ]);
       return newFavorite;
     } catch (error) {
@@ -29,12 +31,14 @@ const createFavorite = async (favorite) => {
     try {
         const query = `
             UPDATE favorites 
-            SET url = $1, description = $2
-            WHERE id = $3
+            SET url = $1, description = $2, title = $3, url_to_image = $4
+            WHERE id = $5
             RETURNING *`;
         const updatedRecord = await db.one(query, [
             updatedFavorite.url,
             updatedFavorite.description,
+            updatedFavorite.title,
+            updatedFavorite. url_to_image,
             id
         ]);
         return updatedRecord;
