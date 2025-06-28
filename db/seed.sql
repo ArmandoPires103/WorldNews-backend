@@ -26,7 +26,7 @@ INSERT INTO users (username, password_hash, email, created_at, updated_at, prima
 VALUES
   
     ('demo', '$2b$10$.z68x3792U9LyBwmghfsKexstMO7i0SeNCoDmeJa7bEFPQBnZU3bK', 'demo@example.com', NOW(), NOW(), 1, 2),
-    ('user1', 'password', 'user1@example.com', NOW(), NOW(), 1, 2),
+    ('user1', '$2b$10$IFccE9DsjTaFSv70Hwcd.OP2UU2S.QyrwabwYxx4wKDH4hYO2INnS', 'user1@example.com', NOW(), NOW(), 1, 2),
     ('user2', 'password456', 'user2@example.com', NOW(), NOW(), 3, 4),
     ('user3', 'password789', 'user3@example.com', NOW(), NOW(), 5, 6);
 
