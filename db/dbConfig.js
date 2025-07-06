@@ -1,19 +1,24 @@
-const pgp = require("pg-promise")();
-require("dotenv").config();
+const pgp = require('pg-promise')();
 
-// for local db
-// const cn = {
-//   host: process.env.PG_HOST,
-//   port: process.env.PG_PORT,
-//   database: process.env.PG_DATABASE,
-//   user: process.env.PG_USER,
-//   password: process.env.PG_PASSWORD,
-// };
+// Database configuration
+const dbConfig = {
+  host: process.env.DB_HOST || 'localhost',
+  port: process.env.DB_PORT || 5432,
+  database: process.env.DB_NAME || 'worldmap_dev',
+  user: process.env.DB_USER || 'postgres',
+  password: process.env.DB_PASSWORD || 'password',
+};
 
-// for deployment using ElephantSQL comment the cn variable above out and comment the cn variable below in
-// const cn = process.env.CONNECTION_STRING;
-const connectionstring = process.env.CONNECTION_STRING
-const db = pgp(connectionstring);
-// const db = pgp(cn);
+const db = pgp(dbConfig);
+
+// Test the connection
+db.connect()
+  .then(obj => {
+    console.log('✅ Database connection successful');
+    obj.done(); // success, release the connection;
+  })
+  .catch(error => {
+    console.log('❌ Database connection error:', error.message);
+  });
 
 module.exports = db;

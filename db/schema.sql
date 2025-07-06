@@ -15,19 +15,20 @@ CREATE TABLE countries (
 );
 
 
-CREATE TABLE users (
+-- Create users table
+CREATE TABLE IF NOT EXISTS users (
     id SERIAL PRIMARY KEY,
-    username VARCHAR(255) UNIQUE NOT NULL,
+    username VARCHAR(50) UNIQUE NOT NULL,
+    email VARCHAR(100) UNIQUE NOT NULL,
     password_hash VARCHAR(255) NOT NULL,
-    email VARCHAR(255) UNIQUE,
-    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
-    primary_country_id INTEGER,
-    secondary_country_id INTEGER,
-    FOREIGN KEY (primary_country_id) REFERENCES countries(id),
-    FOREIGN KEY (secondary_country_id) REFERENCES countries(id)
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
+-- Create demo user (password is 'password')
+INSERT INTO users (username, email, password_hash) 
+VALUES ('demo', 'demo@example.com', '$2b$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi')
+ON CONFLICT (username) DO NOTHING;
 
 
 CREATE TABLE favorites(

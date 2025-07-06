@@ -1,18 +1,22 @@
 const jwt = require("jsonwebtoken");
 
-function generateToken(user) {
+const JWT_SECRET = process.env.JWT_SECRET || "your-secret-key-change-this-in-production";
+
+const generateToken = (user) => {
   const payload = {
-    id: user.id, // Use user's unique identifier
+    id: user.id,
     username: user.username,
     email: user.email,
   };
 
-  const secret = process.env.JWT_SECRET;
-  const options = {
-    expiresIn: "1h", // Token expires in 1 hour
-  };
+  return jwt.sign(payload, JWT_SECRET, { expiresIn: "24h" });
+};
 
-  return jwt.sign(payload, secret, options);
-}
+const verifyToken = (token) => {
+  return jwt.verify(token, JWT_SECRET);
+};
 
-module.exports = { generateToken };
+module.exports = {
+  generateToken,
+  verifyToken,
+};

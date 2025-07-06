@@ -5,19 +5,33 @@ const { findUserByUsername, createUser } = require("../queries/users");
 const { authenticateToken } = require("../middlewares/authenticateToken");
 const auth = express.Router();
 
-// Login route
+console.log("✅ authController has been loaded!");
+
+// TEST ROUTE
+auth.get("/test", (req, res) => {
+  res.json({ message: "Auth route is working!" });
+});
+
+// LOGIN ROUTE
 auth.post("/login", async (req, res) => {
   const { username, password } = req.body;
 
   try {
+    if (!username || !password) {
+      return res.status(400).json({ message: "Username and password are required." });
+    }
+
     const user = await findUserByUsername(username);
 
-    if (!user) return res.status(401).json({ message: "Invalid credentials" });
+    if (!user) {
+      return res.status(401).json({ message: "Invalid credentials" });
+    }
 
     const validPassword = await bcrypt.compare(password, user.password_hash);
 
-    if (!validPassword)
+    if (!validPassword) {
       return res.status(401).json({ message: "Invalid credentials" });
+    }
 
     const token = generateToken(user);
 
@@ -27,18 +41,22 @@ auth.post("/login", async (req, res) => {
       token,
     });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "An error occurred during the login process." });
+    console.error("Login error:", error);
+    res.status(500).json({ message: "An error occurred during the login process." });
   }
 });
 
-// Register route
+// REGISTER ROUTE
 auth.post("/register", async (req, res) => {
   const { username, password, email } = req.body;
+  console.log("Incoming register body:", req.body);
+
   try {
-    // Check if user already exists
+    if (!username || !password || !email) {
+      return res.status(400).json({ message: "Username, password, and email are required." });
+    }
+
+    // Check if user exists
     const existingUser = await findUserByUsername(username);
     if (existingUser) {
       return res.status(409).json({ message: "Username already taken" });
@@ -48,68 +66,52 @@ auth.post("/register", async (req, res) => {
     const saltRounds = 10;
     const hashedPassword = await bcrypt.hash(password, saltRounds);
 
-    // Create user in the database
+    // Create user
     const newUser = await createUser({
       username,
       passwordHash: hashedPassword,
       email,
-      primary_countries,
-      secondary_countries
     });
 
     const token = generateToken(newUser);
 
-    if (token) {
-      return res.status(201).json({
-        message: "User registered successfully",
-        newUser,
-        token,
-      });
-    }
+    res.status(201).json({
+      message: "User registered successfully",
+      newUser,
+      token,
+    });
   } catch (error) {
-    console.error(error);
-    res
-      .status(500)
-      .json({ message: "An error occurred during the registration process." });
+    console.error("Register error:", error);
+    res.status(500).json({ message: "An error occurred during the registration process." });
   }
 });
 
+// CHECK AUTH ROUTE
 auth.get("/check-auth", authenticateToken, (req, res) => {
-  // Assuming authenticateToken middleware adds user info to req.user
-
   if (req.user) {
-    const { user } = req;
     return res.status(200).json({
       isAuthenticated: true,
-      user: {
-        user,
-      },
+      user: req.user,
     });
   } else {
-    // If for some reason, req.user is not set, treat as not authenticated
     res.status(401).json({ isAuthenticated: false });
   }
 });
 
-auth.get("/user", authenticateToken, async (req, res) => {
+// GET USER ROUTE
+auth.get("/user", authenticateToken, (req, res) => {
   const { user } = req;
-  try {
-    if (!user) {
-      return res.status(404).json({ message: "User not found" });
-    }
-    if (user)
-      // Return the user information, excluding sensitive data like password
-      res.status(200).json({
-        user: {
-          id: user.id,
-          username: user.username,
-          email: user.email,
-        },
-      });
-  } catch (error) {
-    console.error("Error fetching user:", error);
-    res.status(500).json({ message: "Internal server error" });
+  if (!user) {
+    return res.status(404).json({ message: "User not found" });
   }
+
+  res.status(200).json({
+    user: {
+      id: user.id,
+      username: user.username,
+      email: user.email,
+    },
+  });
 });
 
 module.exports = auth;
